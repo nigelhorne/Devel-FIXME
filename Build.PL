@@ -9,7 +9,7 @@ Module::Build->new(
 	module_name => 'Devel::FIXME',
 	license => 'perl',
 	requires => {
-		'perl'	=> '>= 5.8.0',
+		'perl'	=> '5.8.0',
 	},
 	build_requires => {
 		'Test::Most' => 0,
@@ -18,5 +18,5 @@ Module::Build->new(
 		'Text::Soundex' => 0, # used in testing
 	},
 	create_makefile_pl => 'traditional',
-	sign => 1,
+	# sign => 1,
 )->create_build_script;
