@@ -4,7 +4,7 @@
 use strict;
 use warnings;
 
-use Test::More tests => 5;
+use Test::Most tests => 5;
 use Test::Warn;
 use Test::Exception;
 
@@ -39,4 +39,3 @@ SKIP: {
 
 	chmod 0644, "t/lib/cant_read";
 }
-

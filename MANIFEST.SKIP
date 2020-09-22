@@ -1,12 +1,11 @@
-\.DS_Store$
 ^_build
 ^Build$
 ^blib
 ~$
 \.bak$
-\.sw.$
-^cover_db
+\.par$
 ^MANIFEST\.SKIP$
-^_darcs
+\.tar\.gz$
+.git
 ^MYMETA\.yml$
 ^MYMETA\.json$

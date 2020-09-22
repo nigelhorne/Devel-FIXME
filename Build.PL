@@ -12,6 +12,7 @@ Module::Build->new(
 		'perl'	=> '>= 5.8.0',
 	},
 	build_requires => {
+		'Test::Most' => 0,
 		'Test::Warn' => '0.10',
 		'Test::NoWarnings' => 0,
 		'Text::Soundex' => 0, # used in testing
