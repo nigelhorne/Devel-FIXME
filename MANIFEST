@@ -1,4 +1,5 @@
 Build.PL
+Changes
 lib/Devel/FIXME.pm
 lib/Devel/FIXME/Rules/PerlFile.pm
 MANIFEST			This list of files
