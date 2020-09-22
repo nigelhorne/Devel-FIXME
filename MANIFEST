@@ -1,0 +1,11 @@
+Build.PL
+lib/Devel/FIXME.pm
+lib/Devel/FIXME/Rules/PerlFile.pm
+MANIFEST			This list of files
+t/01-basic.t
+t/02-api.t
+t/03-require.t
+t/04-errors.t
+t/lib/cant_read
+t/lib/Devel/FIXME/Test/Error.pm
+t/lib/Devel/FIXME/Test/Scalar.pm
