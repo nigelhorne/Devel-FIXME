@@ -8,3 +8,5 @@
 ^cover_db
 ^MANIFEST\.SKIP$
 ^_darcs
+^MYMETA\.yml$
+^MYMETA\.json$

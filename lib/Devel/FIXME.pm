@@ -12,7 +12,6 @@ use Exporter;
 use Scalar::Util qw/reftype/;
 use List::Util qw/first/;
 use Carp qw/carp croak/;
-use File::Spec::Functions;
 
 our @EXPORT_OK = qw/FIXME SHOUT DROP CONT/;
 our %EXPORT_TAGS = ( "constants" => \@EXPORT_OK );
@@ -49,15 +48,16 @@ our $carprec = 0;
 sub install_inc {
 	my $pkg = shift;
 	
-	unshift @INC, sub {
-		my ( $self, $file ) = @_;
+	unshift @INC, sub { # YUCK! but tying %INC didn't work, and source filters are applied per caller. XS for source filter purposes is yucki/er/
+		my $self = shift;
+		my $file = shift;
 		
 		return undef if $lock{$file}; # if we're already processing the file, then we're in the eval several lines down. return.
 		local $lock{$file} = 1; # set this lock that prevents recursion
 
 		unless (ref $INC[0] and $INC[0] == $self){ # if this happens, some stuff won't be filtered. It shouldn't happen often though.
 			local @INC = grep { !ref or $_ != $self } @INC; # make sure we don't recurse when carp loads it's various innards, it causes a mess
-			carp "Devel::FIXME's magic sub is no longer first in \@INC" . ($REPAIR_INC ? ", repairing" : "");
+			carp "FIXME's magic sub is no longer first in \@INC" . ($REPAIR_INC ? ", repairing" : "");
 			if ($REPAIR_INC){
 				my $i = 0;
 				while ($i < @INC) {
@@ -72,31 +72,25 @@ sub install_inc {
 			}
 		}
 
-		foreach my $dir (@INC) {
-			next if ref $dir;
+		# create some perl code that gives back the return value of the original package, and thus looks like you're really requiring the same thing
+		my $buffer = "\${ delete \$Devel::FIXME::rets{q{$file}} };"; # return what the last module returned. I don't know why it doesn't work without refs
+		# really load the file
+		local $cur = $file;
+		my $ret = eval 'require $Devel::FIXME::cur'; # require always evaluates the return from an evalfile in scalar context, so we don't need to worry about list
 
-			my $path = catfile($dir, $file);
+		($err = "$@\n") =~ s/\nCompilation failed in require at \(eval \d+\)(?:\[.*?\])? line 1\.\n//s; # trim off the eval's appendix to the error
+		$buffer = 'die $Devel::FIXME::err' if $@; # rethrow this way, so that base.pm shuts up
+		
+		# save the return value so that the original require can have it
+		$rets{$file} = \$ret; # see above for why it's a ref
 
-			if (open my $fh, "<", $path) {
-				return ($fh, sub {
-					$pkg->process_line($_, file => $path);
-					return length $_;
-				});
-			}
-		}
+		# look for FIXME comments in the file that was really required
+		$pkg->readfile($INC{$file}) if ($INC{$file});
 
-		return;
+		# return a filehandle containing source code that simply returns the value the real file did
+		open my $fh, "<", \$buffer;
+		$fh;
 	};
-}
-
-sub process_line {
-	my ( $pkg, $line, @args ) = @_;
-
-	$pkg->FIXME(
-		text => "$1",
-		line => $., # the current line number for <$src>
-		@args,
-	) if $line =~ $pkg->regex;
 }
 
 sub regex {
@@ -113,9 +107,12 @@ sub readfile { # FIXME refactor to something classier
 	local $_;
 
 	while(<$src>){
-		$pkg->process_line($_, line => $., file => $file);
+		$pkg->FIXME( # if the line matches the fixme, generate a fixme
+			text => "$1",
+			line => $., # the current line number for <$src>
+			file => $file,
+		) if $_ =~ $pkg->regex;
 	} continue { last if eof $src }; # is this a platform bug on OSX?
-
 	close $src;
 }
 
@@ -189,7 +186,7 @@ sub import { # export \&FIXME to our caller, /and/ generate a message if there i
 
 sub FIXME { # generate a method
 	my $pkg = __PACKAGE__;
-	$pkg = shift if UNIVERSAL::can($_[0],"isa") and $_[0]->isa(__PACKAGE__);
+	$pkg = shift if UNIVERSAL::can($_[0],"isa") and $_[0]->isa(__PACKAGE__); # it's a method or function, we don't care
 	$pkg->new(@_)->eval;
 }
 *msg = \&FIXME; # booya.
@@ -381,9 +378,13 @@ to commit changes.
 
 =head1 AUTHOR
 
-Yuval Kogman <nothingmuch@woobling.org>
+Original Author:
+Yuval Kogman, C<< <nothingmuch@woobling.org> >>
 
-=head1 COPYRIGHT & LICENSE
+Current maintainer:
+Nigel Horne, C<< <njh@bandsman.co.uk> >>
+
+=head1 COPYRIGHT & LICENCE
 
 	Copyright (c) 2004 Yuval Kogman. All rights reserved
 	This program is free software; you can redistribute
