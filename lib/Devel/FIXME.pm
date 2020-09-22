@@ -16,7 +16,7 @@ use Carp qw/carp croak/;
 our @EXPORT_OK = qw/FIXME SHOUT DROP CONT/;
 our %EXPORT_TAGS = ( "constants" => \@EXPORT_OK );
 
-our $VERSION = 0.01;
+our $VERSION = 0.02;
 
 # some constants for rules
 sub CONT () { 0 };
