@@ -13,7 +13,7 @@ use_ok("Devel::FIXME");
 
 use lib 't/lib';
 
-if($^O ne 'MSWin32') {
+if($^O eq 'MSWin32') {
 	# Strange, almost like multiline matches don't work - is it confused by \r somewhere?
 	throws_ok {
 		require Devel::FIXME::Test::Error;
