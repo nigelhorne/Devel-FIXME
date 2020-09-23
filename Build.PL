@@ -6,6 +6,8 @@ use warnings;
 use Module::Build;
 
 Module::Build->new(
+	dist_author         => 'Nigel Horne <njh@bandsman.co.uk>',
+	dist_version_from   => 'lib/Devel/FIXME.pm',
 	module_name => 'Devel::FIXME',
 	license => 'perl',
 	requires => {
@@ -19,4 +21,10 @@ Module::Build->new(
 	},
 	create_makefile_pl => 'traditional',
 	# sign => 1,
-)->create_build_script;
+	add_to_cleanup      => [ 'Devel-FIXME-*' ],
+	meta_merge => {
+		resources => {
+			repository => 'http://github.com/nigelhorne/Devel-FIXME/tree/master',
+		}
+	},
+)->create_build_script()
