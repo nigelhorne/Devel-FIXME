@@ -1,4 +1,5 @@
 Build.PL
+Changes
 lib/Devel/FIXME.pm
 lib/Devel/FIXME/Rules/PerlFile.pm
 MANIFEST			This list of files
@@ -14,3 +15,6 @@ t/no404s.t
 t/noopentickets.t
 t/noplan.t
 t/spelling.t
+Makefile.PL
+META.yml
+META.json
