@@ -4,7 +4,7 @@
 use strict;
 use warnings;
 
-use Test::More tests => 5;
+use Test::Most tests => 5;
 use Test::Warn;
 use Test::Exception;
 
@@ -15,7 +15,7 @@ use lib 't/lib';
 
 throws_ok {
 	require Devel::FIXME::Test::Error;
-} qr{Devel/FIXME/Test/Error\.pm line 6.*at @{[ __FILE__ ]} line @{[ __LINE__ -1 ]}}s, "syntax errors propegate ordinarily";
+} qr{Devel/FIXME/Test/Error\.pm line 6.+ @{[ __FILE__ ]} line @{[ __LINE__ -1 ]}}s, 'syntax errors propegate ordinarily';
 
 throws_ok {
 	Devel::FIXME->new(qw/uneven number of elements in argument list/);
