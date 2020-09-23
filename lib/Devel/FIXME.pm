@@ -141,6 +141,8 @@ sub shout { # generate a pretty string and send it to STDERR
 sub new { # an object per FIXME statement
 	my $pkg = shift;
 
+	return unless(defined($pkg));
+
 	my %args;
 	
 	if (@_ == 1){ # if we only have one arg
