@@ -20,4 +20,5 @@ t/no404s.t
 t/noopentickets.t
 t/noplan.t
 t/pod-cm.t
+t/port.t
 t/spelling.t

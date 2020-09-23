@@ -1,3 +1,4 @@
+.travis.yml
 Build.PL
 Changes
 lib/Devel/FIXME.pm
@@ -18,4 +19,5 @@ t/links.t
 t/no404s.t
 t/noopentickets.t
 t/noplan.t
+t/pod-cm.t
 t/spelling.t

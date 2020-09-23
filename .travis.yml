@@ -52,7 +52,7 @@ jobs:
         - export "PATH=/c/Strawberry/perl/site/bin:/c/Strawberry/perl/bin:/c/Strawberry/c/bin:$PATH"
       install:
         - cpanm -q -n --skip-satisfied --notest --installdeps .
-        - cpanm -q -n --skip-satisfied Module::Build Test::Most
+        - cpanm -q -n --skip-satisfied Module::Build Test::Most Test::Pod::Spelling::CommonMistakes
       script:
         - perl Build.PL
         - ./Build
