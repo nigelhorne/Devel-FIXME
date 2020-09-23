@@ -18,23 +18,4 @@ if($@) {
 }
 
 __END__
-AnnoCPAN
-CGI
 CPAN
-FCGI
-GPL
-Init
-ISPs
-POSTing
-RT
-cgi
-http
-https
-params
-param
-stdin
-tmpdir
-Tmpdir
-www
-xml
-iPad
