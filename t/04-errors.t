@@ -4,7 +4,7 @@
 use strict;
 use warnings;
 
-use Test::Most tests => 5;
+use Test::More tests => 5;
 use Test::Warn;
 use Test::Exception;
 
