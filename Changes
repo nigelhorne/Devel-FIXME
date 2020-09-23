@@ -1,4 +1,7 @@
 Revision history for Devel-FIXME
 
+0.03
+	Work around test failures on Windows
+
 0.02	Tue Sep 22 19:32:44 EDT 2020
 	New maintainer
