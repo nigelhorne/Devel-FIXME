@@ -348,7 +348,7 @@ When C<require> is called and the @INC hook is entered, it makes sure that it's
 first in the @INC array. If it isn't, some files might be required without
 being filtered. If the global variable C<$Devel::FIXME::REPAIR_INC> is set to a
 true value (it's undef by default), then the magic sub will put itself back in
-the begining of @INC as required.
+the beginning of @INC as required.
 
 =back
 
