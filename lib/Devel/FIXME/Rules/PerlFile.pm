@@ -12,15 +12,15 @@ my @rules;
 my $rulesfile;
 
 BEGIN {
-	my $base = $ENV{FIXME_RULEFILE} || "/.fixme/rules.pl";
+	my $base = $ENV{FIXME_RULEFILE} || '/.fixme/rules.pl';
 	$rulesfile = $ENV{HOME} . $base;
 }
 
 sub rules {
 	my $self = shift;
 
-	if (!@rules){
-		if (!$ENV{FIXME_NOFILTER} and -f $rulesfile){
+	if(!@rules) {
+		if((!$ENV{FIXME_NOFILTER}} and (-f $rulesfile)) {
 			@rules = @{ require $rulesfile };
 		} else {
 			@rules = ( sub { return SHOUT } );
