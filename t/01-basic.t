@@ -20,6 +20,6 @@ my ( $file, $line ) = ( quotemeta(__FILE__), __LINE__ ); # FIXME foo
 
 warning_like {
 	use_ok("Devel::FIXME");
-} qr/# FIXME: foo at $file line $line\.$/, "emits proper fixme";
+} qr/# (FIXME): foo at $file line $line\.$/, "emits proper fixme";
 
 ok($INC{'Devel/FIXME.pm'}, 'Now it has been loaded');

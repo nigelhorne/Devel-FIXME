@@ -94,7 +94,7 @@ sub install_inc {
 }
 
 sub regex {
-	qr/#\s*(?:FIXME|XXX)\s+(.*)$/; # match a FIXME or an XXX, in a comment, with some lax whitespace rules, and suck in anything afterwords as the text
+	qr/#\s*(?:FIXME|XXX):?\s+(.*)$/; # match a FIXME or an XXX, in a comment, with some lax whitespace rules, and suck in anything afterwords as the text
 }
 
 sub readfile { # FIXME refactor to something classier
