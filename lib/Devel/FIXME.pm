@@ -56,7 +56,7 @@ sub install_inc {
 		local $lock{$file} = 1; # set this lock that prevents recursion
 
 		unless (ref $INC[0] and $INC[0] == $self){ # if this happens, some stuff won't be filtered. It shouldn't happen often though.
-			local @INC = grep { (!ref) or ($_ != $self) } @INC; # make sure we don't recurse when carp loads it's various innards, it causes a mess
+			local @INC = grep { (!ref) or ($_ != $self) } @INC; # make sure we don't recurse when carp loads its various innards, it causes a mess
 			carp "FIXME's magic sub is no longer first in \@INC" . ($REPAIR_INC ? ", repairing" : "");
 			if ($REPAIR_INC){
 				my $i = 0;
