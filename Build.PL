@@ -24,7 +24,8 @@ Module::Build->new(
 	add_to_cleanup      => [ 'Devel-FIXME-*' ],
 	meta_merge => {
 		resources => {
-			repository => 'http://github.com/nigelhorne/Devel-FIXME/tree/master',
+			repository => 'http://github.com/nigelhorne/Devel-FIXME',
+			bugtracker => 'http://github.com/nigelhorne/Devel-FIXME/issues',
 		}
 	},
 )->create_build_script()
