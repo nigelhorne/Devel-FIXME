@@ -29,7 +29,7 @@ my %lock; # to prevent recursion
 our %rets; # return value cache
 our $cur; # the current file, used in an eval
 our $err; # the current error, for rethrowal
-our $inited; # whether the code ref was installed in @INC, and all 
+our $inited; # whether the code ref was installed in @INC, and all
 
 { my $anon = ''; open my $fh, "<", \$anon or die $!; close $fh; } # otherwise perlio require stuff breaks
 
@@ -47,11 +47,11 @@ our $carprec = 0;
 
 sub install_inc {
 	my $pkg = shift;
-	
+
 	unshift @INC, sub { # YUCK! but tying %INC didn't work, and source filters are applied per caller. XS for source filter purposes is yucki/er/
 		my $self = shift;
 		my $file = shift;
-		
+
 		return undef if $lock{$file}; # if we're already processing the file, then we're in the eval several lines down. return.
 		local $lock{$file} = 1; # set this lock that prevents recursion
 
@@ -80,7 +80,7 @@ sub install_inc {
 
 		($err = "$@\n") =~ s/\nCompilation failed in require at \(eval \d+\)(?:\[.*?\])? line 1\.\n//s; # trim off the eval's appendix to the error
 		$buffer = 'die $Devel::FIXME::err' if $@; # rethrow this way, so that base.pm shuts up
-		
+
 		# save the return value so that the original require can have it
 		$rets{$file} = \$ret; # see above for why it's a ref
 
@@ -101,7 +101,7 @@ sub readfile { # FIXME refactor to something classier
 	my $pkg = shift;
 	my $file = shift;
 
-	return unless -f $file;	
+	return unless -f $file;
 
 	open my $src, "<", $file or die "couldn't open $file: $!";
 	local $_;
@@ -144,7 +144,7 @@ sub new { # an object per FIXME statement
 	return unless(defined($pkg));
 
 	my %args;
-	
+
 	if (@_ == 1){ # if we only have one arg
 		if (ref $_[0] and reftype($_[0]) eq 'HASH'){ # and it's a hash ref, then we take the hashref to be our args
 			%args = %{ $_[0] };
@@ -156,8 +156,7 @@ sub new { # an object per FIXME statement
 	} else { # if the argument list is anything else we complain
 		croak "Invalid arguments";
 	}
-	
-	
+
 	my __PACKAGE__ $self = $pkg->fields::new();
 	%$self = %args;
 
