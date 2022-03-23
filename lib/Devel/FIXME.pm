@@ -33,6 +33,12 @@ our $inited; # whether the code ref was installed in @INC, and all
 
 { my $anon = ''; open my $fh, "<", \$anon or die $!; close $fh; } # otherwise perlio require stuff breaks
 
+=head1 NAME
+
+Devel::FIXME - Semi intelligent, pending issue reminder system.
+
+=cut
+
 sub init {
 	my $pkg = shift;
 	unless($inited){
@@ -192,15 +198,9 @@ sub FIXME { # generate a method
 }
 *msg = \&FIXME; # booya.
 
-__PACKAGE__
-
 __END__
 
 =pod
-
-=head1 NAME
-
-Devel::FIXME - Semi intelligent, pending issue reminder system.
 
 =head1 SYNOPSIS
 
