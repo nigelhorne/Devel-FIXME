@@ -20,7 +20,7 @@ sub rules {
 	my $self = shift;
 
 	if(!@rules) {
-		if((!$ENV{FIXME_NOFILTER}} and (-f $rulesfile)) {
+		if((!$ENV{FIXME_NOFILTER}) and (-f $rulesfile)) {
 			@rules = @{ require $rulesfile };
 		} else {
 			@rules = ( sub { return SHOUT } );
