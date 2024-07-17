@@ -216,7 +216,7 @@ doesn't mean the issues don't exist. So usually we remind ourselves they do:
 	... # FIXME I hope someone finds this comment
 
 
-and then search through the source tree for occurrances of I<FIXME> every now
+and then search through the source tree for occurrences of I<FIXME> every now
 and then, say with C<grep -ri fixme src/>.
 
 This pretty much works until your code base grows, and you have too many FIXMEs
@@ -244,14 +244,14 @@ automatically.
 
 The regex for finding FIXMEs in a line of source is returned by the C<regex>
 class method (thus it is overridable). It's quite crummy, really. It matches an
-occurrance of a hash sign (C<#>), followed by optional white space and then
+occurrence of a hash sign (C<#>), followed by optional white space and then
 C<FIXME> or C<XXX>. After that any white space is skipped, and whatever comes
 next is the fixme message.
 
 Given some subclassing you could whip up a format for FIXME messages with
 metadata such as priorities, or whatnot. See the implementation of C<readfile>.
 
-The second interface is a compile time, somewhat more explicit way of emmitting
+The second interface is a compile time, somewhat more explicit way of emitting
 messages.
 
 	use Devel::FIXME "broken";
@@ -261,7 +261,7 @@ want your FIXMEs to ruin deployment, so you're forced to get rid of them. Make
 sure you run your final tests in a perl tree that doesn't have L<Devel::FIXME>
 in it.
 
-The third, and probably most problematic is a runtime, explicit way of emmitting
+The third, and probably most problematic is a runtime, explicit way of emitting
 messages:
 
 	use Devel::FIXME qw/FIXME/;
@@ -285,7 +285,7 @@ But do use the first FIXME declaration style. Seriously.
 
 =head2 Rationale
 
-There are some problems with simply grepping for occurances of I<FIXME>:
+There are some problems with simply grepping for occurrences of I<FIXME>:
 
 =over 4
 
@@ -306,7 +306,7 @@ solution.
 =back
 
 The solution to the first two problems is to make the reporting smart, so that
-it decides which FIXMEs are printed and which arent.
+it decides which FIXMEs are printed and which aren't.
 
 The solution to the last problem is to have it happen automatically whenever
 the source code in question is used, and furthermore, to report context too.

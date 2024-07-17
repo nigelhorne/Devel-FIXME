@@ -1,3 +1,4 @@
+.appveyor.yml
 .travis.yml
 Build.PL
 Changes
@@ -12,6 +13,8 @@ t/01-basic.t
 t/02-api.t
 t/03-require.t
 t/04-errors.t
+t/eof.t
+t/eol.t
 t/lib/cant_read
 t/lib/Devel/FIXME/Test/Error.pm
 t/lib/Devel/FIXME/Test/Scalar.pm
@@ -20,4 +23,6 @@ t/no404s.t
 t/noopentickets.t
 t/noplan.t
 t/pod-cm.t
+t/port.t
 t/spelling.t
+t/vars.t

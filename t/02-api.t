@@ -9,7 +9,7 @@ use Test::NoWarnings;
 
 my @orig = @INC;
 local @INC = @INC;
-	
+
 require_ok("Devel::FIXME");
 
 is_deeply(\@INC, \@orig, "\@INC isn't yet changed");
@@ -32,7 +32,6 @@ my (@shouts,@readfiles);
 	sub rules { @rules };
 }
 
-	
 Devel::FIXME::Test->import;
 
 is(ref $INC[0], "CODE", "\$INC[0] is a CODE ref");
@@ -60,7 +59,7 @@ is_deeply([ map { $_->[1] } @readfiles ], [], "did not read all of \%INC a secon
 	package foo;
 
 	use Test::Most;
-	
+
 	ok(!$::{SHOUT}, "SHOUT has not yet been imported");
 	Devel::FIXME->import(qw/SHOUT/);
 	is(\&SHOUT, \&Devel::FIXME::SHOUT, "SHOUT was imported");
@@ -202,7 +201,7 @@ is_deeply(\@shouts, [ [ Devel::FIXME::Test->new({
 @shouts = ();
 
 my $called;
-my $uncalled = 1; 
+my $uncalled = 1;
 @Devel::FIXME::Test::rules = (sub { $called = 1; Devel::FIXME::DROP() }, sub { $uncalled = undef; Devel::FIXME::SHOUT() });
 
 Devel::FIXME::Test->FIXME("moose");

@@ -15,7 +15,7 @@ doesn't mean the issues don't exist. So usually we remind ourselves they do:
 
         ... # FIXME I hope someone finds this comment
 
-and then search through the source tree for occurrances of _FIXME_ every now
+and then search through the source tree for occurrences of _FIXME_ every now
 and then, say with `grep -ri fixme src/`.
 
 This pretty much works until your code base grows, and you have too many FIXMEs
@@ -43,14 +43,14 @@ automatically.
 
 The regex for finding FIXMEs in a line of source is returned by the `regex`
 class method (thus it is overridable). It's quite crummy, really. It matches an
-occurrance of a hash sign (`#`), followed by optional white space and then
+occurrence of a hash sign (`#`), followed by optional white space and then
 `FIXME` or `XXX`. After that any white space is skipped, and whatever comes
 next is the fixme message.
 
 Given some subclassing you could whip up a format for FIXME messages with
 metadata such as priorities, or whatnot. See the implementation of `readfile`.
 
-The second interface is a compile time, somewhat more explicit way of emmitting
+The second interface is a compile time, somewhat more explicit way of emitting
 messages.
 
         use Devel::FIXME "broken";
@@ -60,7 +60,7 @@ want your FIXMEs to ruin deployment, so you're forced to get rid of them. Make
 sure you run your final tests in a perl tree that doesn't have [Devel::FIXME](https://metacpan.org/pod/Devel%3A%3AFIXME)
 in it.
 
-The third, and probably most problematic is a runtime, explicit way of emmitting
+The third, and probably most problematic is a runtime, explicit way of emitting
 messages:
 
         use Devel::FIXME qw/FIXME/;
@@ -84,7 +84,7 @@ But do use the first FIXME declaration style. Seriously.
 
 ## Rationale
 
-There are some problems with simply grepping for occurances of _FIXME_:
+There are some problems with simply grepping for occurrences of _FIXME_:
 
 - It's messy - you get a bajillion lines, if your source tree is big enough.
 - You need context. While grep can provide for it, that isn't necessarily simple
@@ -93,7 +93,7 @@ to read.
 solution.
 
 The solution to the first two problems is to make the reporting smart, so that
-it decides which FIXMEs are printed and which arent.
+it decides which FIXMEs are printed and which aren't.
 
 The solution to the last problem is to have it happen automatically whenever
 the source code in question is used, and furthermore, to report context too.
@@ -134,7 +134,7 @@ from a file.
     first in the @INC array. If it isn't, some files might be required without
     being filtered. If the global variable `$Devel::FIXME::REPAIR_INC` is set to a
     true value (it's undef by default), then the magic sub will put itself back in
-    the begining of @INC as required.
+    the beginning of @INC as required.
 
 # BUGS
 
