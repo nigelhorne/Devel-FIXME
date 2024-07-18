@@ -204,6 +204,7 @@ __END__
 
 =head1 SYNOPSIS
 
+	my $code;
 	this($code)->isa("broken"); # FIXME this line has a bug
 
 =head1 DESCRIPTION
