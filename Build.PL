@@ -14,6 +14,7 @@ Module::Build->new(
 		'perl'	=> '5.8.0',
 	},
 	build_requires => {
+		'Test::DescribeMe' => 0,
 		'Test::Most' => 0,
 		'Test::Warn' => '0.10',
 		'Test::NoWarnings' => 0,

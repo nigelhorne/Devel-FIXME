@@ -6,10 +6,11 @@ WriteMakefile
 	'NAME' => 'Devel::FIXME',
 	'VERSION_FROM' => 'lib/Devel/FIXME.pm',
 	'PREREQ_PM' => {
-		 'Test::Most' => 0,
-		 'Test::NoWarnings' => 0,
-		 'Test::Warn' => '0.10',
-		 'Text::Soundex' => 0
+		'Test::DescribeMe' => 0,
+		'Test::Most' => 0,
+		'Test::NoWarnings' => 0,
+		'Test::Warn' => '0.10',
+		'Text::Soundex' => 0
 	 },
 	'INSTALLDIRS' => 'site',
 	'EXE_FILES' => [],
