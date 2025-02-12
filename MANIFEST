@@ -13,6 +13,7 @@ t/01-basic.t
 t/02-api.t
 t/03-require.t
 t/04-errors.t
+t/30-basics.t
 t/eof.t
 t/eol.t
 t/lib/cant_read
@@ -23,6 +24,7 @@ t/no404s.t
 t/noopentickets.t
 t/noplan.t
 t/pod-cm.t
+t/pod-synopsis.t
 t/port.t
 t/spelling.t
 t/vars.t

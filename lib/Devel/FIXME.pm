@@ -18,7 +18,7 @@ our %EXPORT_TAGS = ( "constants" => \@EXPORT_OK );
 
 our $VERSION = 0.02;
 
-# some constants for rules
+# Some constants for rules
 sub CONT () { 0 };
 sub SHOUT () { 1 };
 sub DROP () { 2 };
@@ -35,7 +35,7 @@ our $inited; # whether the code ref was installed in @INC, and all
 
 =head1 NAME
 
-Devel::FIXME - Semi intelligent, pending issue reminder system.
+Devel::FIXME - Semi-intelligent, pending issue reminder system.
 
 =cut
 
@@ -54,7 +54,7 @@ our $carprec = 0;
 sub install_inc {
 	my $pkg = shift;
 
-	unshift @INC, sub { # YUCK! but tying %INC didn't work, and source filters are applied per caller. XS for source filter purposes is yucki/er/
+	unshift @INC, sub { # YUCK! but tying %INC didn't work, and source filters were applied per caller. XS for source filter purposes is yucki/er/
 		my $self = shift;
 		my $file = shift;
 
@@ -78,7 +78,7 @@ sub install_inc {
 			}
 		}
 
-		# create some perl code that gives back the return value of the original package, and thus looks like you're really requiring the same thing
+		# create some Perl code that gives back the return value of the original package, and thus looks like you're really requiring the same thing
 		my $buffer = "\${ delete \$Devel::FIXME::rets{q{$file}} };"; # return what the last module returned. I don't know why it doesn't work without refs
 		# really load the file
 		local $cur = $file;
@@ -90,7 +90,7 @@ sub install_inc {
 		# save the return value so that the original require can have it
 		$rets{$file} = \$ret; # see above for why it's a ref
 
-		# look for FIXME comments in the file that was really required
+		# look for FIXME comments in the file that were really required
 		$pkg->readfile($INC{$file}) if ($INC{$file});
 
 		# return a filehandle containing source code that simply returns the value the real file did
@@ -157,7 +157,7 @@ sub new { # an object per FIXME statement
 		} else { # if it's one arg and not a hashref, then it's our text
 			%args = ( text => $_[0] );
 		}
-	} elsif (@_ % 2 == 0){ # if there's an even number of arguments, they are key value pairs
+	} elsif (@_ % 2 == 0){ # if there's an even number of arguments, they are key-value pairs
 		%args = @_;
 	} else { # if the argument list is anything else we complain
 		croak "Invalid arguments";
@@ -166,12 +166,12 @@ sub new { # an object per FIXME statement
 	my __PACKAGE__ $self = $pkg->fields::new();
 	%$self = %args;
 
-	# fill in some defaults
+	# Fill in some defaults
 	$self->{package} ||= (caller(1))[0];
 	$self->{file} ||= (caller(1))[1];
 	$self->{line} ||= (caller(1))[2];
 
-	# these are mainly for rules
+	# These are mainly for rules
 	$self->{script} ||= $0;
 	$self->{time} ||= localtime;
 
@@ -209,7 +209,9 @@ __END__
 
 =head1 DESCRIPTION
 
-Usually we're too busy to fix things like circular refs, edge cases and so
+Usually,
+we're too busy to fix things like circular refs, edge cases,
+and so
 forth when we're spewing code into the editor. This is because concentration is
 usually too valuable a resource to throw to waste over minor issues. But that
 doesn't mean the issues don't exist. So usually we remind ourselves they do:
@@ -231,7 +233,7 @@ displayed.
 
 There are several ways to get your code fixed in the indeterminate future.
 
-The first is a sort-of source filter like compile time fix, which does not
+The first is a sort-of source filter like compile-time fix, which does not
 affect shipped code.
 
 	$code; # FIXME broken
@@ -239,17 +241,20 @@ affect shipped code.
 That's it. When L<Devel::FIXME> is loaded, it will emit warnings for such
 comments in any file that was already loaded, and subsequently loaded files as
 they are required. The most reasonable way to get it to work is to set the
-environment variable I<PERL5OPT>, so that it contains C<-MDevel::FIXME>. When
+environment variable I<PERL5OPT> so that it contains C<-MDevel::FIXME>. When
 perl is then started without taint mode on, the module will be loaded
 automatically.
 
 The regex for finding FIXMEs in a line of source is returned by the C<regex>
 class method (thus it is overridable). It's quite crummy, really. It matches an
 occurrence of a hash sign (C<#>), followed by optional white space and then
-C<FIXME> or C<XXX>. After that any white space is skipped, and whatever comes
+C<FIXME> or C<XXX>.
+After that,
+any white space is skipped, and whatever comes
 next is the fixme message.
 
-Given some subclassing you could whip up a format for FIXME messages with
+Given some subclassing,
+you could whip up a format for FIXME messages with
 metadata such as priorities, or whatnot. See the implementation of C<readfile>.
 
 The second interface is a compile time, somewhat more explicit way of emitting
@@ -259,7 +264,7 @@ messages.
 
 This can be repeated for additional messages as needed. This is useful if you
 want your FIXMEs to ruin deployment, so you're forced to get rid of them. Make
-sure you run your final tests in a perl tree that doesn't have L<Devel::FIXME>
+sure you run your final tests in a Perl tree that doesn't have L<Devel::FIXME>
 in it.
 
 The third, and probably most problematic is a runtime, explicit way of emitting
@@ -270,7 +275,7 @@ messages:
 
 This relies on FIXME to have been imported into the current namespace, which is
 probably not always the case. Provided you know FIXME is loaded I<somewhere> in
-the running perl interpreter, you can use a fully qualified version:
+the running Perl interpreter, you can use a fully qualified version:
 
 	$code; Devel::FIXME::FIXME("broken");
 
@@ -292,7 +297,7 @@ There are some problems with simply grepping for occurrences of I<FIXME>:
 
 =item *
 
-It's messy - you get a bajillion lines, if your source tree is big enough.
+It's messy - you get a bazillion lines, if your source tree is big enough.
 
 =item *
 
@@ -326,14 +331,14 @@ more than a week old, or when your release schedule reaches feature freeze, or
 if your program is in the stable tree if your source management repository, or
 whatever.
 
-There are many modules that know how to parse SCM meta data, for CVS, Perforce,
+Many modules know how to parse SCM metadata, for CVS, Perforce,
 SVN, and so forth. L<File::Find::Rule> can be used in nasty ways to ask
 questions about files (like I<was it modified in the last week?>). The
 possibilities are quite vast.
 
 =head2 Practice
 
-Currently the FIXMEs are filtered by calling the class method C<rules>, and
+Currently, the FIXMEs are filtered by calling the class method C<rules>, and
 evaluating the subroutine references that are returned, as methods on the fixme
 object.
 
@@ -349,15 +354,15 @@ from a file.
 When C<require> is called and the @INC hook is entered, it makes sure that it's
 first in the @INC array. If it isn't, some files might be required without
 being filtered. If the global variable C<$Devel::FIXME::REPAIR_INC> is set to a
-true value (it's undef by default), then the magic sub will put itself back in
+true value (it's undef by default), then the magic sub will put itself back at
 the beginning of @INC as required.
 
 =back
 
 =head1 BUGS
 
-If I had a nickle for every bug you could find in this module, I would have
-C<< $nickles >= 0 >>.
+If I had a nickel for every bug you could find in this module, I would have
+C<< $nickels >= 0 >>.
 
 Amongst them:
 
@@ -368,7 +373,7 @@ Amongst them:
 It will find FIXME's in a quoted string, or other such edge cases. I don't
 care. Patches welcome.
 
-C<$nickles++>;
+C<$nickels++>;
 
 =back
 
