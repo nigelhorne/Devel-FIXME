@@ -66,7 +66,7 @@ sub install_inc {
 			carp "FIXME's magic sub is no longer first in \@INC" . ($REPAIR_INC ? ", repairing" : "");
 			if ($REPAIR_INC){
 				my $i = 0;
-				while ($i < @INC) {
+				while ($i < scalar(@INC)) {
 					ref $INC[$i] or next;
 					if ($INC[$i] == $self) {
 						unshift @INC, splice(@INC, $i, 1);
